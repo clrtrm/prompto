@@ -38,13 +38,10 @@ gem 'image_processing', '~> 1.2'
 # gem "rack-cors"
 
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
 
-  # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
   gem 'bundler-audit', require: false
 
-  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem 'brakeman', require: false
 
   gem 'rubocop', '~> 1.88', require: false
@@ -53,6 +50,8 @@ group :development, :test do
 
   gem 'factory_bot_rails', '~> 6.5'
   gem 'rspec-rails', '~> 8.0'
+
+  gem 'dotenv-rails', '~> 3.2'
 end
 
 gem 'shoulda-matchers', '~> 8.0', group: :test
