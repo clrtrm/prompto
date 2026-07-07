@@ -22,3 +22,15 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## Logs
+
+`jul-7`
+- added rubocop
+- configured .rubocop.yml
+- found about the Standard gem (built on RuboCop, unconfigurable), sticking to RuboCop for now
+
+`jul-6`
+- installed PostgreSQL ; plot twist I had been using SQLite for months without noticing (omitted to install PostgreSQL as I changed laptop)
+- installed pg globally
+- initialized this project
