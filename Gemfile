@@ -58,3 +58,5 @@ gem 'shoulda-matchers', '~> 8.0', group: :test
 
 gem 'devise', '~> 5.0'
 gem 'devise-jwt', '~> 0.13.0'
+
+gem 'letter_opener', '~> 1.10', group: :development
