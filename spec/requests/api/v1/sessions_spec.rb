@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Sessions', type: :request do
+RSpec.describe 'Api::V1::Sessions' do
   let(:correct_password) { 'password123' }
   let!(:user) { create(:user, password: correct_password) }
   let(:auth_token) do

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Registrations', :aggregate_failures, type: :request do
+RSpec.describe 'Api::V1::Registrations', :aggregate_failures do
   let(:correct_password) { 'password123' }
   let(:valid_params) do
     { user: {
