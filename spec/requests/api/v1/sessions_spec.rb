@@ -2,20 +2,19 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Sessions', type: :request do
+RSpec.describe 'Api::V1::Sessions', type: :request do
   let(:correct_password) { 'password123' }
   let!(:user) { create(:user, password: correct_password) }
   let(:auth_token) do
-    post '/login', params: {
+    post '/api/v1/login', params: {
       user: { email: user.email, password: correct_password }
     }
     response.headers['Authorization']
   end
 
-  describe 'POST /login' do
-    # Learning note: :aggregate_failures for RuboCop RSpec/MultipleExpectations: "these expectations do belong together"
+  describe 'POST /api/v1/login' do
     it 'logs in with valid credentials and returns a JWT', :aggregate_failures do
-      post '/login', params: {
+      post '/api/v1/login', params: {
         user: { email: user.email, password: correct_password }
       }
       expect(response).to have_http_status(:ok)
@@ -23,14 +22,14 @@ RSpec.describe 'Sessions', type: :request do
     end
 
     it 'rejects invalid credentials' do
-      post '/login', params: {
+      post '/api/v1/login', params: {
         user: { email: user.email, password: 'wrongpassword' }
       }
       expect(response).to have_http_status(:unauthorized)
     end
   end
 
-  describe 'DELETE /logout' do
+  describe 'DELETE /api/v1/logout' do
     it 'logs out with a valid token' do
       delete '/logout', headers: { 'Authorization' => auth_token }
       expect(response).to have_http_status(:ok)
