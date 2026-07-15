@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Sessions', type: :request do # rubocop:disable RSpecRails/InferredSpecType
+RSpec.describe 'Sessions', type: :request do
   let(:correct_password) { 'password123' }
   let!(:user) { create(:user, password: correct_password) }
   let(:auth_token) do
