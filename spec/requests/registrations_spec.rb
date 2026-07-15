@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Registrations', :aggregate_failures, type: :request do
+RSpec.describe 'Registrations', :aggregate_failures, type: :request do # rubocop:disable RSpecRails/InferredSpecType
   let(:correct_password) { 'password123' }
   let(:valid_params) do
     { user: {

@@ -5,8 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def sign_up(resource_name, resource)
-  end
+  def sign_up(resource_name, resource); end
 
   def respond_with(resource, _opts = {})
     if resource.persisted?

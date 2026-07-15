@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Sessions', type: :request do
+RSpec.describe 'Sessions', type: :request do # rubocop:disable RSpecRails/InferredSpecType
   let(:correct_password) { 'password123' }
   let!(:user) { create(:user, password: correct_password) }
   let(:auth_token) do
@@ -13,7 +13,6 @@ RSpec.describe 'Sessions', type: :request do
   end
 
   describe 'POST /login' do
-    # Learning note: :aggregate_failures for RuboCop RSpec/MultipleExpectations: "these expectations do belong together"
     it 'logs in with valid credentials and returns a JWT', :aggregate_failures do
       post '/login', params: {
         user: { email: user.email, password: correct_password }

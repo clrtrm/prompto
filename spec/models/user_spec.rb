@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe User do
+RSpec.describe User, type: :model do # rubocop:disable RSpecRails/InferredSpecType
   subject { build(:user) }
 
   it { is_expected.to validate_presence_of(:username) }
