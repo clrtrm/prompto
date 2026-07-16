@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   has_one :profile, dependent: :destroy
+  has_many :replies, dependent: :destroy
   has_many :daily_prompts, through: :replies
 
   after_create :create_profile

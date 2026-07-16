@@ -29,3 +29,10 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        reply:
+          attributes:
+            user_id:
+              already_replied: 'has already replied to this prompt'

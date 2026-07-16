@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_16_134111) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_16_140551) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -45,6 +45,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_16_134111) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "replies", force: :cascade do |t|
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.bigint "daily_prompt_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["daily_prompt_id", "user_id"], name: "index_replies_on_daily_prompt_id_and_user_id", unique: true
+    t.index ["daily_prompt_id"], name: "index_replies_on_daily_prompt_id"
+    t.index ["user_id"], name: "index_replies_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "display_name"
@@ -62,4 +73,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_16_134111) do
 
   add_foreign_key "daily_prompts", "prompts"
   add_foreign_key "profiles", "users"
+  add_foreign_key "replies", "daily_prompts"
+  add_foreign_key "replies", "users"
 end
