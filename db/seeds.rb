@@ -72,3 +72,20 @@ Comment.find_or_create_by!(
   author: admin_user,
   body: 'Wait what'
 )
+
+# Each user follows two other users
+
+users.each do |user|
+  potential_follows = (users - [user]).sample(2)
+  potential_follows.each do |followed_user|
+    Follow.find_or_create_by!(follower: user, followed: followed_user)
+  end
+end
+
+# Two users follow admin, and admin follows one user back
+
+users.sample(2).each do |user|
+  Follow.find_or_create_by!(follower: user, followed: admin_user)
+end
+
+Follow.find_or_create_by!(follower: admin_user, followed: users.first)
