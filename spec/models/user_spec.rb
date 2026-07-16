@@ -12,4 +12,15 @@ RSpec.describe User, type: :model do
   it 'has a valid factory' do
     expect(build(:user)).to be_valid
   end
+
+  describe 'associations' do
+    it { is_expected.to have_one(:profile).dependent(:destroy) }
+  end
+
+  describe 'profile creation callback' do
+    it 'creates a profile automatically after the user is created' do
+      user = create(:user)
+      expect(user.profile).to be_present
+    end
+  end
 end
