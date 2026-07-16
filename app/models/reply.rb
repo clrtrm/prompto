@@ -3,6 +3,7 @@
 class Reply < ApplicationRecord
   belongs_to :daily_prompt
   belongs_to :user
+  has_many :comments, dependent: :destroy
 
   validates :body, presence: true, length: { minimum: 3, maximum: 500 }
   validates :user_id, uniqueness: { scope: :daily_prompt_id, message: :already_replied }

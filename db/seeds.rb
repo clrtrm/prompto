@@ -43,7 +43,7 @@ end
 
 # Create replies for the prompt of the day, from two different users
 
-Reply.find_or_create_by!(
+admin_reply = Reply.find_or_create_by!(
   daily_prompt: todays_prompt,
   user: admin_user
 ) do |reply|
@@ -56,3 +56,19 @@ Reply.find_or_create_by!(
 ) do |reply|
   reply.body = 'Watermelon but people eat it so fast lol'
 end
+
+# Create comments on a same reply: two from same user, one from author who
+
+['Mustard potato salad is elite', "Actually you don't even need the potato"].each do |el|
+  Comment.find_or_create_by!(
+    reply: admin_reply,
+    author: users.first,
+    body: el
+  )
+end
+
+Comment.find_or_create_by!(
+  reply: admin_reply,
+  author: admin_user,
+  body: 'Wait what'
+)

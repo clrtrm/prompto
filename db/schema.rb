@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_16_163818) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_16_173149) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -18,8 +18,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_16_163818) do
     t.bigint "author_id", null: false
     t.text "body"
     t.datetime "created_at", null: false
+    t.bigint "reply_id", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_comments_on_author_id"
+    t.index ["reply_id"], name: "index_comments_on_reply_id"
   end
 
   create_table "daily_prompts", force: :cascade do |t|
@@ -79,6 +81,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_16_163818) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "comments", "replies"
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "daily_prompts", "prompts"
   add_foreign_key "profiles", "users"
