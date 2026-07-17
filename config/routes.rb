@@ -5,6 +5,10 @@ Rails.application.routes.draw do
 
   resources :prompts, only: [:index]
 
+  devise_scope :user do
+    get '/me', to: 'sessions#current'
+  end
+
   devise_for :users, path: '', path_names: {
     sign_in: 'login',
     sign_out: 'logout',

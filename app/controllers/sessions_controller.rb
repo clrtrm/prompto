@@ -3,6 +3,14 @@
 class SessionsController < Devise::SessionsController
   respond_to :json
 
+  def current
+    if current_user
+      render json: { user: current_user }, status: :ok
+    else
+      render json: { user: nil }, status: :unauthorized
+    end
+  end
+
   private
 
   def respond_with(resource, _opts = {})
@@ -10,6 +18,10 @@ class SessionsController < Devise::SessionsController
   end
 
   def respond_to_on_destroy(*)
-    render json: { message: 'Logged out successfully.' }, status: :ok
+    if current_user
+      render json: { message: 'Logged out successfully.' }, status: :ok
+    else
+      render json: { message: 'No active session.' }, status: :unauthorized
+    end
   end
 end
