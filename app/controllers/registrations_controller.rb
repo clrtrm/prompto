@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class RegistrationsController < Devise::RegistrationsController
+  skip_before_action :authenticate_user!, only: [:create] # rubocop:disable Rails/LexicallyScopedActionFilter
   respond_to :json
 
   private

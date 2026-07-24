@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class SessionsController < Devise::SessionsController
+  skip_before_action :authenticate_user!, only: %i[create current] # rubocop:disable Rails/LexicallyScopedActionFilter
   respond_to :json
 
   def current
