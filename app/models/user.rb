@@ -7,6 +7,8 @@ class User < ApplicationRecord
          :recoverable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
+  before_validation :generate_username, on: :create, if: -> { username.blank? }
+
   has_one :profile, dependent: :destroy
 
   has_many :replies, dependent: :destroy
@@ -58,5 +60,17 @@ class User < ApplicationRecord
 
   def following?(user)
     following.exists?(user)
+  end
+
+  private
+
+  def generate_username
+    loop do
+      candidate = Haikunator.haikunate(1000, '-')
+      unless User.exists?(username: candidate)
+        self.username = candidate
+        break
+      end
+    end
   end
 end
