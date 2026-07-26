@@ -5,6 +5,12 @@ Rails.application.routes.draw do
 
   resources :prompts, only: [:index]
 
+  resources :daily_prompts, only: [:index] do
+    collection do
+      get :today
+    end
+  end
+
   devise_scope :user do
     get '/me', to: 'sessions#current'
   end
