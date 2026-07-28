@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :daily_prompts, only: %i[show update], param: :date, constraints: { date: DailyPrompt::DATE_FORMAT }
+
   devise_scope :user do
     get '/me', to: 'sessions#current'
   end

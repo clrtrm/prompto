@@ -1,18 +1,28 @@
 # frozen_string_literal: true
 
 class DailyPromptsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    daily_prompts = DailyPrompt.includes(:prompt).order(date: :desc)
-    render json: daily_prompts.as_json(include: :prompt)
+    render json: DailyPrompt.order(:date)
   end
 
   def today
-    daily_prompt = DailyPrompt.includes(:prompt).find_by(date: Date.current)
+    render json: DailyPrompt.find_by(date: Date.current)
+  end
 
-    if daily_prompt
-      render json: daily_prompt.as_json(include: :prompt)
+  def show
+    daily_prompt = DailyPrompt.find_by(date: params[:date])
+    daily_prompt ? render(json: daily_prompt) : head(:not_found)
+  end
+
+  def update
+    daily_prompt = DailyPrompt.find_or_initialize_by(date: params[:date])
+
+    if daily_prompt.update(body: params[:body])
+      render json: daily_prompt
     else
-      render json: { error: 'No prompt set for today' }, status: :not_found
+      render json: { errors: daily_prompt.errors.full_messages }, status: :unprocessable_content
     end
   end
 end
