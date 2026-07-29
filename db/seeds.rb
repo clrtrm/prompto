@@ -38,7 +38,7 @@ picnic_prompt = Prompt.find_or_create_by!(
 todays_prompt = DailyPrompt.find_or_create_by!(
   date: Date.current
 ) do |dp|
-  dp.prompt = picnic_prompt
+  dp.body = picnic_prompt.body
 end
 
 # Create replies for the prompt of the day, from two different users
