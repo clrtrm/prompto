@@ -49,4 +49,5 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace! # Learning note: filter lines from Rails gems in backtraces; to look up.
 
   config.include FactoryBot::Syntax::Methods
+  config.include ActiveSupport::Testing::TimeHelpers
 end
