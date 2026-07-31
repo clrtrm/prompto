@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :daily_prompt do
     date { Date.current }
-    prompt
+    body { 'How did you choose your school major?' }
   end
 end

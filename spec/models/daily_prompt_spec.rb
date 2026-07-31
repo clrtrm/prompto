@@ -4,7 +4,6 @@ require 'rails_helper'
 
 RSpec.describe DailyPrompt, type: :model do
   describe 'associations' do
-    it { is_expected.to belong_to(:prompt) }
     it { is_expected.to have_many(:replies).dependent(:destroy) }
   end
 
