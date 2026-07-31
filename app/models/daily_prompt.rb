@@ -9,4 +9,8 @@ class DailyPrompt < ApplicationRecord
   validates :body, presence: true
 
   scope :for_today, -> { where(date: Date.current) }
+
+  def reply_from(user)
+    replies.find_by(user: user)
+  end
 end

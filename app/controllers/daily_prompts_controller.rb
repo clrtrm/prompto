@@ -25,4 +25,11 @@ class DailyPromptsController < ApplicationController
       render json: { errors: daily_prompt.errors.full_messages }, status: :unprocessable_content
     end
   end
+
+  def reply
+    @daily_prompt = DailyPrompt.find_by!(date: params.expect(:date))
+    @reply = @daily_prompt.reply_from(current_user)
+
+    @reply ? render(:reply) : head(:not_found)
+  end
 end

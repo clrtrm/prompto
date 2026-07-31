@@ -3,15 +3,15 @@
 class RepliesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_daily_prompt, only: %i[create]
-  before_action :set_reply, only: %i[update]
+  before_action :set_reply, only: %i[update destroy]
 
   def create
-    reply = @daily_prompt.replies.new(reply_params.merge(user: current_user))
+    @reply = @daily_prompt.replies.new(reply_params.merge(user: current_user))
 
-    if reply.save
-      render json: reply, status: :created
+    if @reply.save
+      render :create, status: :created
     else
-      render json: { errors: reply.errors }, status: :unprocessable_content
+      render json: { errors: @reply.errors }, status: :unprocessable_content
     end
   end
 
@@ -21,6 +21,11 @@ class RepliesController < ApplicationController
     else
       render json: { errors: @reply.errors }, status: :unprocessable_content
     end
+  end
+
+  def destroy
+    @reply.destroy!
+    head :no_content
   end
 
   private
@@ -34,6 +39,6 @@ class RepliesController < ApplicationController
   end
 
   def reply_params
-    params.expect(reply: [:body])
+    params.expect(reply: %i[body])
   end
 end

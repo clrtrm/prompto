@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
   resources :daily_prompts, only: %i[show update], param: :date, constraints: { date: DailyPrompt::DATE_FORMAT } do
     resources :replies, only: %i[create]
+    member do
+      get :reply
+    end
   end
 
   resources :replies, only: %i[update]
