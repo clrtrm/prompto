@@ -8,7 +8,8 @@ class DailyPromptsController < ApplicationController
   end
 
   def today
-    render json: DailyPrompt.find_by(date: Date.current)
+    today = DailyPrompt.find_by(date: Date.current)
+    today ? render(json: today) : head(:not_found)
   end
 
   def show
