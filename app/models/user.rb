@@ -4,7 +4,7 @@ class User < ApplicationRecord
   enum :role, { member: 0, admin: 1 }
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :validatable,
+         :recoverable, :validatable, :confirmable,
          :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
   before_validation :generate_username, on: :create, if: -> { username.blank? }

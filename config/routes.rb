@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Rails.application.routes.draw do
+Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   resources :prompts, only: [:index]
@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     sign_out: 'logout',
     registration: 'signup'
   }, controllers: {
+    confirmations: 'confirmations',
     sessions: 'sessions',
     registrations: 'registrations'
   }

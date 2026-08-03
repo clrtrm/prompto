@@ -11,8 +11,8 @@ class RegistrationsController < Devise::RegistrationsController
   def respond_with(resource, _opts = {})
     if resource.persisted?
       render json: {
-        user: resource,
-        message: 'Signed up successfully.'
+        message: 'Signed up successfully. Please check your email to confirm your account.',
+        user: resource.as_json(only: %i[id email])
       }, status: :created
     else
       render json: {
