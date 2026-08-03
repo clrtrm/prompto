@@ -5,11 +5,8 @@ class SessionsController < Devise::SessionsController
   respond_to :json
 
   def current
-    if current_user
-      render json: { user: current_user }, status: :ok
-    else
-      render json: { user: nil }, status: :unauthorized
-    end
+    @user = current_user
+    render :current, status: current_user ? :ok : :unauthorized
   end
 
   private
