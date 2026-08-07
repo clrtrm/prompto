@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class RevealsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_daily_prompt
   before_action :authorize_reveal!
 

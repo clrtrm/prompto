@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class RepliesController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_daily_prompt, only: %i[create]
   before_action :set_reply, only: %i[update destroy]
 
