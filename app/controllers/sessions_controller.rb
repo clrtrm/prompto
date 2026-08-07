@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 
 class SessionsController < Devise::SessionsController
-  skip_before_action :authenticate_user!, only: %i[create current] # rubocop:disable Rails/LexicallyScopedActionFilter
+  skip_before_action :authenticate_user!, only: %i[create current]
   respond_to :json
+
+  def create
+    self.resource = warden.authenticate!(auth_options)
+    # auth_options: a private helper method defined in Devise::Controllers::Helpers. It is in scope!
+    @user = resource
+    render :create, status: :ok
+  end
 
   def current
     @user = current_user
@@ -10,10 +17,6 @@ class SessionsController < Devise::SessionsController
   end
 
   private
-
-  def respond_with(resource, _opts = {})
-    render json: { user: resource, message: 'Logged in successfully.' }, status: :ok
-  end
 
   def respond_to_on_destroy(*)
     if current_user
