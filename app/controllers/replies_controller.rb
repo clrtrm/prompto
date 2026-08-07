@@ -10,15 +10,15 @@ class RepliesController < ApplicationController
     if @reply.save
       render :create, status: :created
     else
-      render json: { errors: @reply.errors }, status: :unprocessable_content
+      render json: { errors: @reply.errors.full_messages }, status: :unprocessable_content
     end
   end
 
   def update
     if @reply.update(reply_params)
-      render json: @reply
+      render :update
     else
-      render json: { errors: @reply.errors }, status: :unprocessable_content
+      render json: { errors: @reply.errors.full_messages }, status: :unprocessable_content
     end
   end
 
