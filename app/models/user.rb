@@ -18,7 +18,7 @@ class User < ApplicationRecord
            dependent: :destroy
   has_many :daily_prompts, through: :replies
 
-  has_many :following_relationships,
+  has_many :following_relationships, # rubocop:disable Rails/InverseOf
            class_name: 'Follow',
            foreign_key: :follower_id,
            dependent: :destroy
@@ -27,7 +27,7 @@ class User < ApplicationRecord
            through: :following_relationships,
            source: :followed
 
-  has_many :follower_relationships,
+  has_many :follower_relationships, # rubocop:disable Rails/InverseOf
            class_name: 'Follow',
            foreign_key: :followed_id,
            dependent: :destroy
