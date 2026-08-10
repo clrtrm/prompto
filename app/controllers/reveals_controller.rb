@@ -12,7 +12,8 @@ class RevealsController < ApplicationController
 
   def set_daily_prompt
     @daily_prompt = DailyPrompt.find_by(date: params.expect(:date))
-    head(:not_found) unless @daily_prompt
+
+    render json: { reason: 'prompt_not_found' }, status: :not_found unless @daily_prompt
   end
 
   def authorize_reveal!
