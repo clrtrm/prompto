@@ -17,14 +17,20 @@ class DailyPromptsController < ApplicationController
     @daily_prompt ? render(:show) : head(:not_found)
   end
 
-  def update
+  def update # rubocop:disable Metrics/MethodLength
     @daily_prompt = DailyPrompt.find_or_initialize_by(date: params.expect(:date))
+    body = params.fetch(:body).to_s # #fetch over #expect because the latter would invalidate the empty body too soon
 
-    if @daily_prompt.update(body: params.expect(:body))
-      render :show
+    if body.blank?
+      @daily_prompt.destroy if @daily_prompt.persisted?
+      @status = 'deleted'
+    elsif @daily_prompt.update(body: body)
+      @status = 'updated'
     else
-      render json: { errors: @daily_prompt.errors.full_messages }, status: :unprocessable_content
+      @status = 'invalid'
     end
+
+    render :update
   end
 
   def reply
