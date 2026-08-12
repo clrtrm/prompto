@@ -53,14 +53,14 @@ class DailyPromptsController < ApplicationController
     DailyPrompt.minimum(:date)
   end
 
-  # If user provided an end date before yesterday, use it. Else, use yesterday.
+  # If user provided an end date before yesterday, use it. Else, use latest DailyPrompt.
   def filter_end_date
     user_input = date_params[:end_date].presence
-    return Date.yesterday if user_input.blank?
+    return DailyPrompt.maximum(:date) if user_input.blank?
 
-    [Date.parse(user_input), Date.yesterday].min
+    Date.parse(user_input)
   rescue ArgumentError
-    Date.yesterday
+    DailyPrompt.maximum(:date)
   end
 
   def date_params
