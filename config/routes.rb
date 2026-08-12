@@ -20,7 +20,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
   resources :replies, only: %i[update]
 
-  resources :reveals, only: [:show], param: :date, constraints: { date: DailyPrompt::DATE_FORMAT }
+  resources :reveals, only: %i[index show], param: :date, constraints: { date: DailyPrompt::DATE_FORMAT }
 
   devise_scope :user do
     get '/me', to: 'sessions#current'

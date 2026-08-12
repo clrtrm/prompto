@@ -13,4 +13,17 @@ class DailyPrompt < ApplicationRecord
   def reply_from(user)
     replies.find_by(user: user)
   end
+
+  def locked_for?(user)
+    !revealed? || reply_from(user).nil?
+  end
+
+  def revealed?
+    date <= self.class.revealed_cutoff_date
+  end
+
+  def self.revealed_cutoff_date
+    today_10am = Date.current.to_time.change(hour: 10)
+    Time.current >= today_10am ? Date.current - 1 : Date.current - 2
+  end
 end

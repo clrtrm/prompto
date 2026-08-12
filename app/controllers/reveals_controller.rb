@@ -1,8 +1,18 @@
 # frozen_string_literal: true
 
 class RevealsController < ApplicationController
-  before_action :set_daily_prompt
-  before_action :authorize_reveal!
+  before_action :set_daily_prompt, only: %i[show]
+  before_action :authorize_reveal!, only: %i[show]
+
+  def index
+    cutoff = DailyPrompt.revealed_cutoff_date
+
+    @daily_prompts = DailyPrompt
+                     .where('date <= :cutoff OR date = :today', cutoff: cutoff, today: Date.current)
+                     .order(date: :desc)
+
+    @replied_daily_prompt_ids = current_user.replies.pluck(:daily_prompt_id).to_set
+  end
 
   def show
     render :show
@@ -19,9 +29,7 @@ class RevealsController < ApplicationController
   def authorize_reveal!
     return if performed?
 
-    reveal_time = @daily_prompt.date.to_time.change(hour: 10) + 1.day
-
-    if Time.current < reveal_time
+    if !@daily_prompt.revealed?
       render json: { reason: 'not_yet_revealed' }, status: :forbidden
     elsif @daily_prompt.reply_from(current_user).nil?
       render json: { reason: 'reply_required' }, status: :forbidden
