@@ -3,9 +3,6 @@
 json.id reply.id
 json.body reply.body
 json.author do
-  json.id reply.user.id.to_s
-  json.email reply.user.email
-  json.username reply.user.username
-  json.displayName reply.user.display_name
-  json.role reply.user.role
+  json.id reply.user.id
+  json.displayNameOrUsername reply.user.display_name_or_username
 end
