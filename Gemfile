@@ -63,3 +63,5 @@ group :development do
 end
 
 gem 'jbuilder', '~> 2.15'
+
+gem 'resend', '~> 1.7'
