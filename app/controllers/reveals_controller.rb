@@ -5,10 +5,11 @@ class RevealsController < ApplicationController
   before_action :authorize_reveal!, only: %i[show]
 
   def index
+    cycle_date = DailyPrompt.current_cycle_date
     cutoff = DailyPrompt.revealed_cutoff_date
 
     @daily_prompts = DailyPrompt
-                     .where('date <= :cutoff OR date = :today', cutoff: cutoff, today: Date.current)
+                     .where('date <= :cutoff OR date = :cycle_date', cutoff: cutoff, cycle_date: cycle_date)
                      .order(date: :desc)
 
     @replied_daily_prompt_ids = current_user.replies.pluck(:daily_prompt_id).to_set

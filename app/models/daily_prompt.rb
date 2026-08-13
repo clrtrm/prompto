@@ -22,8 +22,12 @@ class DailyPrompt < ApplicationRecord
     date <= self.class.revealed_cutoff_date
   end
 
+  def self.current_cycle_date
+    today_10am = Time.current.change(hour: 10)
+    Time.current >= today_10am ? Date.current : Date.current - 1
+  end
+
   def self.revealed_cutoff_date
-    today_10am = Date.current.to_time.change(hour: 10)
-    Time.current >= today_10am ? Date.current - 1 : Date.current - 2
+    current_cycle_date - 1
   end
 end
