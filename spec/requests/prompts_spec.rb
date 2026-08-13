@@ -12,9 +12,11 @@ RSpec.describe 'Prompts', type: :request do
         expect(response).to have_http_status(:unauthorized)
       end
 
-      it 'returns a JSON error body' do
+      it 'returns a JSON error body', :aggregate_failures do
         get '/prompts', as: :json
-        expect(response.parsed_body).to include('error')
+        expect(response.parsed_body).to include('errors')
+        expect(response.parsed_body['errors']).to be_an(Array)
+        expect(response.parsed_body['errors']).not_to be_empty
       end
     end
 
