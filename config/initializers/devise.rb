@@ -309,4 +309,8 @@ Devise.setup do |config| # rubocop:disable Metrics/BlockLength
     ]
     jwt.expiration_time = 1.day.to_i
   end
+
+  config.warden do |manager|
+    manager.failure_app = JsonFailureApp
+  end
 end
