@@ -40,7 +40,7 @@ group :development, :test do
   gem 'bundler-audit', require: false
 
   # ==> Linting
-  gem 'rubocop', '~> 1.88', require: false
+  gem 'rubocop', '~> 1.89', require: false
   gem 'rubocop-factory_bot', '~> 2.28', require: false
   gem 'rubocop-rails', '~> 2.35', require: false
   gem 'rubocop-rspec', '~> 3.10', require: false
