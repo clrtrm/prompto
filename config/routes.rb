@@ -29,10 +29,12 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   devise_for :users, path: '', path_names: {
     sign_in: 'login',
     sign_out: 'logout',
-    registration: 'signup'
+    registration: 'signup',
+    password: 'password'
   }, controllers: {
     confirmations: 'confirmations',
     sessions: 'sessions',
-    registrations: 'registrations'
+    registrations: 'registrations',
+    passwords: 'passwords'
   }
 end
