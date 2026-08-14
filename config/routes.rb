@@ -37,4 +37,6 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     registrations: 'registrations',
     passwords: 'passwords'
   }
+
+  get 'version', to: 'version#show'
 end
