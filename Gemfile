@@ -64,4 +64,4 @@ end
 
 gem 'jbuilder', '~> 2.15'
 
-gem 'resend', '~> 1.7'
+gem 'resend', '~> 1.17'
